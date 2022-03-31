@@ -1,5 +1,4 @@
 import json
-from datetime import datetime
 
 def read_file(name):
     data = ""
@@ -35,9 +34,8 @@ def get_output_res(balances_dict):
     for date, amount in balances_dict.items():
         item = dict(amount=amount, startDate=date)
         res.append(item)
-        dates_list += [datetime.strptime(date, '%Y-%m-%dT%H:%M:%S.%fZ')]
-    
-    res = [x for _, x in sorted(zip(dates_list, res))]
+
+    res = sorted(res, key=lambda d: d['startDate'])
     return dict(balance=res)
 
 i1 = json.loads( read_file("1-input.json") )
