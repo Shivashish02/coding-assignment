@@ -10,21 +10,15 @@ def balances_dict(data):
     balances_dict = {}
     for item in data["expenseData"]:
         date = item["startDate"]
-        date, time = date.split("T")
-        year, month, day = date.split("-")
-        new_date = year + "-" + month + "-01" + "T" + time
-        if new_date not in balances_dict:
-            balances_dict[new_date] = 0
-        balances_dict[new_date] -= item["amount"]
+        if date not in balances_dict:
+            balances_dict[date] = 0
+        balances_dict[date] -= item["amount"]
 
     for item in data["revenueData"]:
         date = item["startDate"]
-        date, time = date.split("T")
-        year, month, day = date.split("-")
-        new_date = year + "-" + month + "-01" + "T" + time
-        if new_date not in balances_dict:
-            balances_dict[new_date] = 0
-        balances_dict[new_date] += item["amount"]
+        if date not in balances_dict:
+            balances_dict[date] = 0
+        balances_dict[date] += item["amount"]
     return balances_dict
 
 
